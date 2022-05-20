@@ -1,0 +1,110 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Input Manager</title>
+    <script src="jquery.3.1.1/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="lib/input-manager.js"></script>
+</head>
+
+<body>
+    <div>Input Manager attaches itself to a textarea or a input and provides you location of the cursor in XY
+        coordinates. The item to be floated must be within the same container which contains input/textarea.
+        and the container must be inline-block and positioned relative.</div>
+    <div>This plugin fails for RTL languages due to the browser bugs.</div>
+    <br />
+    <br />
+    <button id="toggle-enabled">Enable/Disable Plugin</button>
+    <button id="toggle-debug">Enable/Disable Debug</button>
+    <br />
+    <br />
+    <div>LTR</div>
+    <div style="display: inline-block; position: relative;">
+        <textarea id="input-area1" style="width: 400px; height: 150px;" dir="ltr"></textarea>
+        <div id="locator1"
+            style="position: absolute; border-radius: 50%; width: 5px; height: 5px; background-color: #FF0000;"></div>
+    </div>
+    <br />
+    <br />
+    <div id="location1"></div>
+
+    <br />
+    <br />
+    <div>RTL</div>
+    <div style="display: inline-block; position: relative;">
+        <textarea id="input-area2" style="width: 400px; height: 150px;" dir="rtl"></textarea>
+        <div id="locator2"
+            style="position: absolute; border-radius: 50%; width: 5px; height: 5px; background-color: #FF0000;"></div>
+    </div>
+    <br />
+    <br />
+    <div id="location2"></div>
+</body>
+
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var _InputManager1 = new InputManager($('#input-area1'), {
+            debug: true,
+            enableEvents: true,
+            events: {
+                onKeypress: function (e) {
+                    console.log('onKeypress event -', e);
+                },
+                onKeydown: function (e) {
+                    console.log('onKeydown event -', e);
+                },
+                onKeyup: function (e) {
+                    console.log('onKeyup event -', e);
+                },
+                onCursorPositionChanged: function (e) {
+                    console.log('onCursorPositionChanged event -', e);
+                    $('#location1').text(JSON.stringify(e));
+                    $("#locator1").css({ top: e.cursorOffset.top, left: e.cursorOffset.left });
+                }
+            }
+        });
+
+        var _InputManager2 = new InputManager($('#input-area2'), {
+            debug: true,
+            enableEvents: true,
+            events: {
+                onKeypress: function (e) {
+                    console.log('onKeypress event -', e);
+                },
+                onKeydown: function (e) {
+                    console.log('onKeydown event -', e);
+                },
+                onKeyup: function (e) {
+                    console.log('onKeyup event -', e);
+                },
+                onCursorPositionChanged: function (e) {
+                    console.log('onCursorPositionChanged event -', e);
+                    $('#location2').text(JSON.stringify(e));
+                    $("#locator2").css({ top: e.cursorOffset.top, right: e.cursorOffset.right });
+                }
+            }
+        });
+
+        $('#toggle-enabled').click(function () {
+            _InputManager1.setEnabled(!_InputManager1.getEnabled());
+            _InputManager2.setEnabled(!_InputManager2.getEnabled());
+        });
+
+        var debug = false;
+
+        $('#toggle-debug').click(function () {
+            debug = !debug;
+            setDebug(debug);
+        });
+
+        function setDebug(e) {
+            _InputManager1.setDebug(e);
+            _InputManager2.setDebug(e);
+        }
+
+        setDebug(debug);
+    });
+</script>
