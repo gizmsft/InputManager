@@ -1,0 +1,13 @@
+{
+  "name": "option-selector",
+  "version": "1.0.0",
+  "description": "A class to render two dimensional list that can be used with other JQuery plugins such as an autocomplete",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gizmosoft Solutions",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.6.0"
+  }
+}
