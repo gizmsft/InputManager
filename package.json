@@ -1,5 +1,5 @@
 {
-  "name": "option-selector",
+  "name": "input-manager",
   "version": "1.0.0",
   "description": "A class that watches user input and tracks caret both by character distance and cartesian position.",
   "scripts": {
